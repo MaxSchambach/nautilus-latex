@@ -1,0 +1,5 @@
+#! /bin/bash
+
+echo "Removing Nautilus extension"
+rm ~/.local/share/nautilus-python/extensions/nautilus-latex.py
+rm -r ~/.local/share/nautilus-python/extensions/nautilus-latex-src

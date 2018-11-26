@@ -1,0 +1,7 @@
+#! /bin/bash
+
+echo "Installing Nautilus extension"
+mkdir -p ~/.local/share/nautilus-python/extensions/nautilus-latex-src
+cp -i ./nautilus-latex.py ~/.local/share/nautilus-python/extensions/
+cp -i ./src/config.ini ~/.local/share/nautilus-python/extensions/nautilus-latex-src/
+chmod 755 ~/.local/share/nautilus-python/extensions/nautilus-latex.py
