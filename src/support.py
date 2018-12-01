@@ -58,9 +58,16 @@ def get_tex_files(folder):
 
 def compile_tex(filepath, compiler, bib):
 
-    command = compiler + " " + filepath + " > /dev/null && "
-    command += compiler + " " + filepath + " > /dev/null && "
-    command += bib + " " + os.path.splitext(os.path.basename(filepath))[0] + " > /dev/null && "
-    command += compiler + " " + filepath + " > /dev/null"
-    os.system(command)
-    return
+    dir = os.path.dirname(filepath)
+    filename = "./" + os.path.basename(filepath)
+    filebase = "./" + os.path.splitext(filename)[0]
+
+    output = " > /dev/null"
+
+    command = "cd " + dir + " && "
+    command += compiler + " " + filename + output + " && "
+    command += compiler + " " + filename + output + " && "
+    command += bib + " " + filebase + output + " && "
+    command += compiler + " " + filename + output
+    res = os.system(command)
+    return res
