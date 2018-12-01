@@ -1,0 +1,10 @@
+#! /bin/bash
+
+# Read paths from config file
+source <(grep = ./src/config.ini)
+
+echo "Removing LaTex cleanup CLI"
+
+sudo rm -i $clipath/latex-cleanup
+
+echo "Done"

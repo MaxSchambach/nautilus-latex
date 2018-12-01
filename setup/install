@@ -1,7 +1,23 @@
 #! /bin/bash
 
-echo "Installing Nautilus extension"
-mkdir -p ~/.local/share/nautilus-python/extensions/nautilus-latex-src
-cp -i ./nautilus-latex.py ~/.local/share/nautilus-python/extensions/
-cp -i ./src/config.ini ~/.local/share/nautilus-python/extensions/nautilus-latex-src/
-chmod 755 ~/.local/share/nautilus-python/extensions/nautilus-latex.py
+# Read paths from config file
+source <(grep = ./src/config.ini)
+
+echo "Installing Nautilus extension to $extpath"
+
+# Create Directory if necessary
+mkdir -p $extpath
+mkdir -p $srcpath
+
+# Copy files
+cp -i ./nautilus-latex.py $extpath
+cp -r -i ./src $srcpath
+
+# Chmods of copied files
+chmod 755 $extpath/nautilus-latex.py
+chmod -R 755 $srcpath
+
+# Insert SRC path to python script
+sed -i "21isrc_path = '$srcpath'" $extpath/nautilus-latex.py
+
+echo "Done"

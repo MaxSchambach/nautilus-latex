@@ -1,5 +1,12 @@
 #! /bin/bash
 
+# Read paths from config file
+source <(grep = ./src/config.ini)
+
 echo "Removing Nautilus extension"
-rm ~/.local/share/nautilus-python/extensions/nautilus-latex.py
-rm -r ~/.local/share/nautilus-python/extensions/nautilus-latex-src
+
+rm $extpath/nautilus-latex.py
+rm $extpath/nautilus-latex.pyc >/dev/null 2>/dev/null
+rm -r $srcpath
+
+echo "Done"

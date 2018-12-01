@@ -1,0 +1,16 @@
+#! /bin/bash
+
+# Read paths from config file
+source <(grep = ./src/config.ini)
+
+echo "Installing LaTex cleanup CLI"
+
+# Copy files
+sudo cp -i ./src/latex_cleanup.py $clipath
+sudo mv -i $clipath/latex_cleanup.py $clipath/latex-cleanup
+sudo rm $clipath/latex_cleanup.py >/dev/null 2>/dev/null
+
+# Chmods of copied files
+sudo chmod 755 $clipath/latex-cleanup
+
+echo "Done"
