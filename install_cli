@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Installing CLI"
+sudo cp -i src/latex_cleanup.py /usr/bin
+sudo chmod 755 /usr/bin/latex_cleanup.py
+sudo mv -i /usr/bin/latex_cleanup.py /usr/bin/latex-cleanup
+sudo rm /usr/bin/latex_cleanup.py > /dev/null
+echo "Done"
