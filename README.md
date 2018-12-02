@@ -1,4 +1,8 @@
 # Nautilus LaTex extension
+This is a simple Nautilus extension for basic LaTex usage such as compiling and deleting temporary files.
+
+![](https://github.com/MaxSchambach/github-binaries/blob/master/nautilus-latex.gif)
+
 
 ## Installation
 
