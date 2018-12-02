@@ -16,9 +16,6 @@
 """Nautilus extension for LaTex related tasks.
 """
 
-# Source file directory (this gets overwritten upon installation)
-src_path = ""
-
 import os
 import sys
 
@@ -34,14 +31,15 @@ except ImportError:
 
 from gi.repository import Nautilus, GObject
 
-src_path = os.path.join(src_path, "src/")
+SRC_PATH="@SRC_PATH@"
+
 config = configparser.ConfigParser()
 
 # Read config file, either in 'src' or in 'nautilus-latex-src'
-_out = config.read(os.path.join(src_path, "config.ini"))
+_out = config.read(os.path.join(SRC_PATH, "config.ini"))
 
 if _out == []:
-    _out = config.read('src/config.ini')
+    _out = config.read(os.path.join(SRC_PATH, "src/config.ini"))
 
 if _out == []:
     raise RuntimeError("nautilus-latex: No config file found.")
@@ -52,7 +50,7 @@ bib_def = config['default']['bibliography']
 bib = config['bibliography'][bib_def].replace("'", "")
 
 # Load modules from SRC path
-sys.path.append(src_path)
+sys.path.append(SRC_PATH)
 from latex_cleanup import get_extensions, latex_cleanup, is_tex_folder
 from support import get_path, get_tex_files, compile_tex
 
@@ -75,6 +73,7 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
             return
 
         filepath = get_path(file)
+        folderpath = os.path.dirname(filepath)
 
         # Top Menu
         top_menuitem = Nautilus.MenuItem(name='LatexExtension::Latex',
@@ -92,9 +91,19 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
             tip='',
             icon='')
         compile_menuitem.connect(
-            'activate', self.compile_menu_activate_cb, filepath)
+            'activate', self.compile_menu_cb, filepath)
+
+        # Sub Menu Item: LaTex Cleanup
+        cleanup_menuitem = Nautilus.MenuItem(
+            name='LatexExtension::Cleanup',
+            label='Cleanup temporary LaTex files',
+            tip='',
+            icon='')
+        cleanup_menuitem.connect(
+            'activate', self.cleanup_menu_cb, folderpath)
 
         # Add menu items to main submenu
+        top_submenu.append_item(cleanup_menuitem)
         top_submenu.append_item(compile_menuitem)
 
         # Add main submenu
@@ -130,7 +139,7 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
             tip='',
             icon='')
         cleanup_menuitem.connect(
-            'activate', self.cleanup_menu_background_activate_cb, folderpath)
+            'activate', self.cleanup_menu_cb, folderpath)
 
         # Create submenu entry for every tex file in folder
 
@@ -155,7 +164,7 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
                 tip='Compile file ' + tex_file_base,
                 icon='')
             compile_sub_menuitem.connect(
-                'activate', self.compile_menu_background_activate_cb, tex_file)
+                'activate', self.compile_menu_cb, tex_file)
 
             # Add compile submenu items
             compile_submenu.append_item(compile_sub_menuitem)
@@ -172,15 +181,10 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
 
         return top_menuitem,
 
-    # File item actions
-    def compile_menu_activate_cb(self, menu, filepath):
+    # Callback functions
+    def compile_menu_cb(self, menu, filepath):
         print("Compiling LaTex file ", filepath)
         compile_tex(filepath, compiler, bib)
 
-    # Background item actions
-    def cleanup_menu_background_activate_cb(self, menu, filepath):
+    def cleanup_menu_cb(self, menu, filepath):
         latex_cleanup(filepath, get_extensions())
-
-    def compile_menu_background_activate_cb(self, menu, filepath):
-        print("Compile LaTex file ", filepath)
-        compile_tex(filepath, compiler, bib)

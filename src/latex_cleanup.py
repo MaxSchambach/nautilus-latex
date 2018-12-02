@@ -100,7 +100,7 @@ def latex_cleanup(folderpath, extensions):
     # Delete files, if .tex file and temporary files were found
     if len(file_list) != 0:
         for file in file_list:
-            os.system("trash '" + file + "'")
+            os.system("gio trash '" + file + "'")
         return file_list
 
     else:
