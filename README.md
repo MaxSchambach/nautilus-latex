@@ -19,7 +19,7 @@ By default, the extension is installed to ``~/.local/share/nautilus-python/exten
 and the supporting files to ``~/.local/share/nautilus-latex``.
 
 ### Dependencies
-The Python bindings for the Nautilus extension uses the ``python-nautilus`` package of the GNOME project.
+The Python bindings for the Nautilus extension uses the [``nautilus-python``](https://github.com/GNOME/nautilus-python) package of the GNOME project which should be available through your distro's package manager, e.g. the ``python-nautilus`` package for Arch Linux.
 
 ### Command Line Interface
 Additional to the Nautilus extension, there is a simple CLI for
