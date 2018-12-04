@@ -18,6 +18,9 @@ If needed, adapt the installation paths in the `CMakeLists.txt` file.
 By default, the extension is installed to ``~/.local/share/nautilus-python/extensions``
 and the supporting files to ``~/.local/share/nautilus-latex``.
 
+### Configuration
+To adapt the build process, by default this runs ``pdflatex`` and ``biber``, change the ``src/config.ini`` file before installation or update the installation by calling ``make install``.
+
 ### Dependencies
 The Python bindings for the Nautilus extension uses the [``nautilus-python``](https://github.com/GNOME/nautilus-python) package of the GNOME project which should be available through your distro's package manager, e.g. the ``python-nautilus`` package for Arch Linux.
 
