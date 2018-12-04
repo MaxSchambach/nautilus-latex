@@ -15,6 +15,11 @@
 
 import os
 
+# Python 3 and 2 compatible
+try:
+    from urllib import unquote
+except ImportError:
+    from urllib.parse import unquote
 
 def get_path(file):
     """Get file path from a NautilusVFSFile file.
@@ -28,7 +33,7 @@ def get_path(file):
 
     # Get filepath, remove file:// prefix
     filepath = file.get_uri()[7:]
-    return os.path.abspath(filepath)
+    return unquote(os.path.abspath(filepath))
 
 
 def get_tex_files(folder):
@@ -64,10 +69,10 @@ def compile_tex(filepath, compiler, bib):
 
     output = " > /dev/null"
 
-    command = "cd " + dir + " && "
-    command += compiler + " " + filename + output + " && "
-    command += compiler + " " + filename + output + " && "
-    command += bib + " " + filebase + output + " && "
-    command += compiler + " " + filename + output
+    command = "cd '" + dir + "' && "
+    command += compiler + " '" + filename + "' " +  output + " && "
+    command += compiler + " '" + filename + "' " + output + " && "
+    command += bib + " '" + filename + "' " + output + " && "
+    command += compiler + " '" + filename + "' " + output
     res = os.system(command)
     return res

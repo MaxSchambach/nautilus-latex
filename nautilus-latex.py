@@ -20,11 +20,6 @@ import os
 import sys
 
 try:
-    from urllib import unquote
-except ImportError:
-    from urllib.parse import unquote
-
-try:
     import ConfigParser
 except ImportError:
     import configparser
