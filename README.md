@@ -14,7 +14,7 @@ To install the extension run
     make
     make install
     
-If needed, adapt the installation paths in the `CMakeLists.txt` file.
+If needed, adapt the installation paths in the `scr/config.ini` file.
 By default, the extension is installed to ``~/.local/share/nautilus-python/extensions``
 and the supporting files to ``~/.local/share/nautilus-latex``.
 
