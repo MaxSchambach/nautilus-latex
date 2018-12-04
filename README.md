@@ -18,6 +18,9 @@ If needed, adapt the installation paths in the `CMakeLists.txt` file.
 By default, the extension is installed to ``~/.local/share/nautilus-python/extensions``
 and the supporting files to ``~/.local/share/nautilus-latex``.
 
+### Dependencies
+The Python bindings for the Nautilus extension uses the ``python-nautilus`` package of the GNOME project.
+
 ### Command Line Interface
 Additional to the Nautilus extension, there is a simple CLI for
 cleaning up temporary LaTex files. To install, simply run
