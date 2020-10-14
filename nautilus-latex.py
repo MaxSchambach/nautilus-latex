@@ -39,10 +39,10 @@ if _out == []:
 if _out == []:
     raise RuntimeError("nautilus-latex: No config file found.")
 
-compiler_def = config['default']['compiler']
-compiler = config['compiler'][compiler_def].replace("'", "")
-bib_def = config['default']['bibliography']
-bib = config['bibliography'][bib_def].replace("'", "")
+compiler_def = config.get('default', 'compiler')
+compiler = config.get('compiler', compiler_def).replace("'", "")
+bib_def = config.get('default', 'bibliography')
+bib = config.get('bibliography', bib_def).replace("'", "")
 
 # Load modules from SRC path
 sys.path.append(SRC_PATH)
