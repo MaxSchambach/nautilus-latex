@@ -20,7 +20,7 @@ import os
 import sys
 
 try:
-    import ConfigParser
+    import ConfigParser as configparser
 except ImportError:
     import configparser
 
@@ -52,6 +52,7 @@ from support import get_path, get_tex_files, compile_tex
 
 class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
     def __init__(self):
+        print("I am a change.")
         pass
 
     def get_file_items(self, window, files):
