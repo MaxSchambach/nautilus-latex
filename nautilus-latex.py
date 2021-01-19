@@ -46,13 +46,17 @@ bib = config.get('bibliography', bib_def).replace("'", "")
 
 # Load modules from SRC path
 sys.path.append(SRC_PATH)
-from latex_cleanup import get_extensions, latex_cleanup, is_tex_folder
-from support import get_path, get_tex_files, compile_tex
+from latex_cleanup import get_extensions
+from latex_cleanup import latex_cleanup
+from latex_cleanup import is_tex_folder
+from support import get_path
+from support import get_tex_files 
+from support import compile_tex
+from support import compile_latexmk
 
 
 class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
     def __init__(self):
-        print("I am a change.")
         pass
 
     def get_file_items(self, window, files):
