@@ -89,6 +89,15 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
         compile_menuitem.connect(
             'activate', self.compile_menu_cb, filepath)
 
+        # Sub Menu Item: Ĺatexmk
+        latexmk_menuitem = Nautilus.MenuItem(
+            name='LatexExtension::Latexmk',
+            label='Latexmk',
+            tip='',
+            icon='')
+        latexmk_menuitem.connect(
+            'activate', self.latexmk_menu_cb, folderpath)
+
         # Sub Menu Item: LaTex Cleanup
         cleanup_menuitem = Nautilus.MenuItem(
             name='LatexExtension::Cleanup',
@@ -100,6 +109,7 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
 
         # Add menu items to main submenu
         top_submenu.append_item(cleanup_menuitem)
+        top_submenu.append_item(latexmk_menuitem)
         top_submenu.append_item(compile_menuitem)
 
         # Add main submenu
@@ -137,6 +147,15 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
         cleanup_menuitem.connect(
             'activate', self.cleanup_menu_cb, folderpath)
 
+        # Sub Menu Item: Latexmk
+        latexmk_menuitem = Nautilus.MenuItem(
+            name='LatexExtension::LatexmkBG',
+            label='Run Latexmk',
+            tip='',
+            icon='')
+        latexmk_menuitem.connect(
+            'activate', self.latexmk_menu_cb, folderpath)
+
         # Create submenu entry for every tex file in folder
 
         # Sub Menu Item: LaTex Compilation
@@ -170,6 +189,7 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
 
         # Add menu items to main submenu
         top_submenu.append_item(cleanup_menuitem)
+        top_submenu.append_item(latexmk_menuitem)
         top_submenu.append_item(compile_menuitem)
 
         # Add main submenu
@@ -182,5 +202,13 @@ class LatexExtension(Nautilus.MenuProvider, GObject.GObject):
         print("Compiling LaTex file ", filepath)
         compile_tex(filepath, compiler, bib)
 
+    # Callback functions
+
+    def latexmk_menu_cb(self, menu, filepath):
+        print("Compiling with latexmk in folder", filepath)
+        compile_latexmk(filepath)
+
     def cleanup_menu_cb(self, menu, filepath):
+        print("Removing temporary files in: ", filepath)
+        print("Deleting files with extensions: ", get_extensions())
         latex_cleanup(filepath, get_extensions())

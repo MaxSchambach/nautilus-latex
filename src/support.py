@@ -14,6 +14,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
+import subprocess
 
 # Python 3 and 2 compatible
 try:
@@ -70,9 +71,19 @@ def compile_tex(filepath, compiler, bib):
     output = " > /dev/null"
 
     command = "cd '" + dir + "' && "
-    command += compiler + " '" + filename + "' " +  output + " && "
-    command += compiler + " '" + filename + "' " + output + " && "
-    command += bib + " '" + filename + "' " + output + " && "
-    command += compiler + " '" + filename + "' " + output
-    res = os.system(command)
-    return res
+
+    if compiler == 'latexmk':
+        command += compiler + " '" + filename + "' " +  output
+    else:
+        command += compiler + " '" + filename + "' " +  output + " && "
+        command += compiler + " '" + filename + "' " + output + " && "
+        command += bib + " '" + filename + "' " + output + " && "
+        command += compiler + " '" + filename + "' " + output
+
+    return os.system(command)
+
+
+def compile_latexmk(folder):
+
+    # Use call for Python 2 compatibility
+    return subprocess.call('latexmk', cwd=folder, shell=True)

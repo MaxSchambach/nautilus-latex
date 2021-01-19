@@ -64,11 +64,12 @@ def get_extensions():
     # Extensions to cleanup
     extensions = [".aux", ".auxlock", ".bbl", ".bcf", ".blg", ".brf", ".dvi",
                   ".glo", ".idx", ".ilg", ".ind", ".log", ".lot", ".lof", ".ist",
-                  ".out", ".ps", ".xml", ".synctex.gz", ".thm",
-                  ".toc", ".nls", ".nlo", ".nav", ".snm", ".upa"]
-
+                  ".out", ".ps", ".xml", ".synctex.gz", ".thm", ".md5", ".dpth",
+                  ".toc", ".nls", ".nlo", ".nav", ".snm", ".upa", ".fls", ".fdb_latexmk",
+                  ".xabbr", ".xglos", ".xmathop", ".xparam", ".xsubsup", ".xsym", ".xincludes", ".gls"]
     # Remove possible duplicates
     extensions = list(set(extensions))
+    extensions.sort()
 
     return extensions
 
